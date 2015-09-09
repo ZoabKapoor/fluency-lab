@@ -2,8 +2,6 @@
 
 # import csaudio ; reload(csaudio) ; from csaudio import *
 
-# making a change so I can submit a PR
-
 import wave
     
 def printParams(params):
@@ -310,7 +308,6 @@ def play(filename):
         # and it seems to work in the same way play did
         # perhaps Apple simply used play?
         os.system( ('/usr/bin/afplay ' + filename) )
-        
 
         
         

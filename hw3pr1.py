@@ -159,7 +159,22 @@ def flipflop(filename):
 
 # Sound function to write #1:  reverse
 
-
+def reverse(filename):
+    """ reverses a sound
+    """
+    print "Playing the original sound..."
+    play(filename)
+    
+    print "Reading in the sound data..."
+    samps, sr = readwav(filename)
+    
+    print "Computing new sound..."
+    newsamps = samps[::-1]
+    newsr = sr                      
+    
+    writewav( newsamps, newsr, "out.wav" )
+    print "Playing new sound..."
+    play( 'out.wav' )
 
 
 
@@ -167,9 +182,38 @@ def flipflop(filename):
 
 # Sound function to write #2:  volume
 
+def volume(filename, scale_factor):
+    """changes volume of a sound by scale_factor"""
 
+    print "Playing the original sound..."
+    play(filename)
+    
+    print "Reading in the sound data..."
+    samps, sr = readwav(filename)
+    
+    print "Computing new sound..."
+    newsamps = scale(samps, scale_factor)
+    newsr = sr
 
+    writewav( newsamps, newsr, "out.wav" )
+    print "Playing new sound..."
+    play( 'out.wav' )
 
+class Soundfile:
+
+    def __init__(self, filename):
+        self.samps, self.sr = readwav(filename)
+
+    def __repr__(self):
+        writewav(self.samps,self.sr,"out.wav")
+        play("out.wav")
+
+    def reverse(self):
+        self.samps = self.samps[::-1]
+        return
+
+    def volume(self, scale_factor):
+        # TODO complete this
 
 
 
