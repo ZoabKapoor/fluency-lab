@@ -128,118 +128,33 @@ def changeSpeed(filename, newsr):
     writewav( newsamps, newsr, "out.wav" )  # write data to out.wav
     print "\nPlaying new sound..."
     play( 'out.wav' )   # play the new file, 'out.wav'
-    
 
-
-def flipflop(filename):
-    """ flipflop swaps the halves of an audio file
-        input: filename, the name of the original file
-        output: no return value, but
-                this creates the sound file 'out.wav'
-                and plays it
-    """
-    print "Playing the original sound..."
-    play(filename)
-    
-    print "Reading in the sound data..."
-    samps, sr = readwav(filename)
-    
-    print "Computing new sound..."
-    # this gets the midpoint and calls it x
-    x = len(samps)/2
-    newsamps = samps[x:] + samps[:x] # flip flop
-    newsr = sr                       # no change to the sr
-    
-    writewav( newsamps, newsr, "out.wav" )
-    print "Playing new sound..."
-    play( 'out.wav' )
-
-
-
-
-# Sound function to write #1:  reverse
-
-def reverse(filename):
-    """ reverses a sound
-    """
-    print "Playing the original sound..."
-    play(filename)
-    
-    print "Reading in the sound data..."
-    samps, sr = readwav(filename)
-    
-    print "Computing new sound..."
-    newsamps = samps[::-1]
-    newsr = sr                      
-    
-    writewav( newsamps, newsr, "out.wav" )
-    print "Playing new sound..."
-    play( 'out.wav' )
-
-
-
-
-
-# Sound function to write #2:  volume
-
-def volume(filename, scale_factor):
-    """changes volume of a sound by scale_factor"""
-
-    print "Playing the original sound..."
-    play(filename)
-    
-    print "Reading in the sound data..."
-    samps, sr = readwav(filename)
-    
-    print "Computing new sound..."
-    newsamps = scale(samps, scale_factor)
-    newsr = sr
-
-    writewav( newsamps, newsr, "out.wav" )
-    print "Playing new sound..."
-    play( 'out.wav' )
-
-class Soundfile:
+class Sound:
 
     def __init__(self, filename):
         self.samps, self.sr = readwav(filename)
-
-    def __repr__(self):
-        writewav(self.samps,self.sr,"out.wav")
-        play("out.wav")
+        return
 
     def reverse(self):
         self.samps = self.samps[::-1]
         return
 
-    def volume(self, scale_factor):
-        # TODO complete this
+    def change_volume(self, scale_factor):
+        self.samps = scale(self.samps, scale_factor)
+        return
 
+    def play(self):
+        writewav(self.samps, self.sr, "temp.wav")
+        play("temp.wav")
 
+    def save(self):
+        writewav(self.samps, self.sr, "out.wav")
+        return
 
-# Sound function to write #3:  static
-
-
-
-
-
-
-
-# Sound function to write #4:  overlay
-
-
-
-
-
-
-
-# Sound function to write #5:  echo
-
-
-
-
-
-
+    # don't try to save out.wav
+    def save(self, output_filename):
+        writewav(self.samps, self.sr, output_filename)
+        return
 
 
 # Helper function for generating pure tones
