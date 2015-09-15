@@ -137,11 +137,11 @@ class Sound:
 
     def reverse(self):
         self.samps = self.samps[::-1]
-        return
+        return self
 
     def change_volume(self, scale_factor):
         self.samps = scale(self.samps, scale_factor)
-        return
+        return self
 
     def play(self):
         writewav(self.samps, self.sr, "temp.wav")
@@ -149,12 +149,12 @@ class Sound:
 
     def save(self):
         writewav(self.samps, self.sr, "out.wav")
-        return
+        return self
 
     # don't try to save out.wav
     def save(self, output_filename):
         writewav(self.samps, self.sr, output_filename)
-        return
+        return self
 
 
 # Helper function for generating pure tones
